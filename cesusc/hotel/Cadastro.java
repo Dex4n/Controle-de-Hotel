@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,32 +17,21 @@ import java.net.URISyntaxException;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 
-public class Cadastro extends JFrame {
-	
+public class Cadastro extends JDialog {
+
 	private JTextField txtCodigo;
 	private JTextField txtNome;
 	private JTextField txtCidade;
 	private JTextField txtEstado;
 	private JTextField txtValorAvaliacao;
-	Hotel meuHotel;
+	private Hotel meuHotel;
+	private ControleHotel controleHotel;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Cadastro frame = new Cadastro();
-					
-					/*
-					Hotel meuHotel = new Hotel(1,"Premium");
-					meuHotel.setEstado("Santa Catarina");
-					meuHotel.setCidade("Florianópolis");
-					meuHotel.setAvaliacao(10.00);
-					
-					frame.carregaHotel(meuHotel);
-					*/
 					
 					frame.setVisible(true);	
 				} catch (Exception e) {
@@ -51,15 +41,12 @@ public class Cadastro extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Cadastro() {
 		
-		meuHotel = new Hotel(0, "");
+		meuHotel = new Hotel();
 		
 		setTitle("Cadastro");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		getContentPane().setLayout(null);
 		
@@ -140,23 +127,23 @@ public class Cadastro extends JFrame {
 			}
 		});
 		
-		var1Estrela.setIcon(new ImageIcon("C:\\Users\\ADS\\Desktop\\Java - Ling Prog I\\Java 03 10 2019\\src\\cesusc\\hotel\\favoritos.png"));
+		var1Estrela.setIcon(new ImageIcon("C:\\Users\\Alexandre Casagrande\\git\\Hotel-Window-Builder\\src\\favoritos.png"));
 		var1Estrela.setBounds(60, 130, 16, 16);
 		getContentPane().add(var1Estrela);
 		
-		var2Estrela.setIcon(new ImageIcon("C:\\Users\\ADS\\Desktop\\Java - Ling Prog I\\Java 03 10 2019\\src\\cesusc\\hotel\\favoritos.png"));
+		var2Estrela.setIcon(new ImageIcon("C:\\Users\\Alexandre Casagrande\\git\\Hotel-Window-Builder\\src\\favoritos.png"));
 		var2Estrela.setBounds(80, 130, 16, 16);
 		getContentPane().add(var2Estrela);
 		
-		var3Estrela.setIcon(new ImageIcon("C:\\Users\\ADS\\Desktop\\Java - Ling Prog I\\Java 03 10 2019\\src\\cesusc\\hotel\\favoritos.png"));
+		var3Estrela.setIcon(new ImageIcon("C:\\Users\\Alexandre Casagrande\\git\\Hotel-Window-Builder\\src\\favoritos.png"));
 		var3Estrela.setBounds(100, 130, 16, 16);
 		getContentPane().add(var3Estrela);
 		
-		var4Estrela.setIcon(new ImageIcon("C:\\Users\\ADS\\Desktop\\Java - Ling Prog I\\Java 03 10 2019\\src\\cesusc\\hotel\\favoritos.png"));
+		var4Estrela.setIcon(new ImageIcon("C:\\Users\\Alexandre Casagrande\\git\\Hotel-Window-Builder\\src\\favoritos.png"));
 		var4Estrela.setBounds(120, 130, 16, 16);
 		getContentPane().add(var4Estrela);
 		
-		var5Estrela.setIcon(new ImageIcon("C:\\Users\\ADS\\Desktop\\Java - Ling Prog I\\Java 03 10 2019\\src\\cesusc\\hotel\\favoritos.png"));
+		var5Estrela.setIcon(new ImageIcon("C:\\Users\\Alexandre Casagrande\\git\\Hotel-Window-Builder\\src\\favoritos.png"));
 		var5Estrela.setBounds(140, 130, 16, 16);
 		getContentPane().add(var5Estrela);
 		
@@ -176,43 +163,35 @@ public class Cadastro extends JFrame {
 					JOptionPane.showMessageDialog(null, "Os campos de <Código, Nome, Cidade, Estado e Avaliação> obrigatoriamente devem estar preenchidos!");
 				} else {
 					atualizaHotel();
+					
+					setVisible(false);						
 				}		
 			}
 		});
+		
 		botaoEnviar.setBounds(130, 150, 85, 20);
 		getContentPane().add(botaoEnviar);
-		
 		
 		JLabel varAvaliacao = new JLabel("Avaliação");
 		varAvaliacao.setBounds(10, 155, 86, 14);
 		getContentPane().add(varAvaliacao);
 		
-		JButton btnNewButton = new JButton("GitHub @D3x4n vers\u00E3o 1.0");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		JButton botaoGitHub = new JButton("GitHub @D3x4n vers\u00E3o 1.0");
+		botaoGitHub.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				try {
-					java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Dex4n/Java"));
+					java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Dex4n/Controle-de-Hotel"));
 				} catch (IOException | URISyntaxException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		});
-		btnNewButton.setBounds(363, 327, 211, 23);
-		getContentPane().add(btnNewButton);
+		
+		botaoGitHub.setBounds(363, 327, 211, 23);
+		getContentPane().add(botaoGitHub);
 	}
-	
-	/*
-	public void carregaHotel(Hotel hotel) {
-		this.txtNome.setText(hotel.getNome());
-		this.txtCodigo.setText("" + hotel.getCodigo());
-		this.txtCidade.setText(hotel.getCidade());
-		this.txtEstado.setText(hotel.getEstado());
-		this.txtValorAvaliacao.setText("" + hotel.getAvaliacao());
-		meuHotel = hotel;
-	}
-	*/
 	
 	public void atualizaHotel() {
 		meuHotel.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
@@ -221,9 +200,23 @@ public class Cadastro extends JFrame {
 		meuHotel.setEstado(txtEstado.getText());
 		meuHotel.setAvaliacao(Double.parseDouble(txtValorAvaliacao.getText()));
 		JOptionPane.showMessageDialog(null, "Atualização do " + meuHotel.toString());
+		controleHotel.adicionaHotel(meuHotel);		
+		this.setVisible(false);
+	}
+	
+	public Hotel getHotel() {
+		return meuHotel;
 	}
 	
 	public boolean validaFormulario() {
 		return (!txtNome.getText().equals("") && !txtCodigo.getText().equals(""));
+	}
+
+	public ControleHotel getControleHotel() {
+		return controleHotel;
+	}
+
+	public void setControleHotel(ControleHotel controleHotel) {
+		this.controleHotel = controleHotel;
 	}
 }

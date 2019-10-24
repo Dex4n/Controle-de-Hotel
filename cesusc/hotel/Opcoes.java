@@ -1,47 +1,29 @@
 package cesusc.hotel;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JMenu;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.KeyStroke;
-import java.awt.event.KeyEvent;
-import java.awt.Color;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.ImageIcon;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
 
 public class Opcoes extends JFrame {
 	
-	Cliente novoCliente;
-	Cadastro novoCadastro;
-
 	private JPanel Janela;
+	private ControleHotel controleHotel;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Opcoes frameOpcoes = new Opcoes();
-					Cadastro frameCadastro = new Cadastro();
-					Cliente frameCliente = new Cliente();
 					
 					frameOpcoes.setVisible(true);		
 				} catch (Exception e) {
@@ -51,63 +33,60 @@ public class Opcoes extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Opcoes() {
 		
-		novoCliente = new Cliente();
-		novoCadastro = new Cadastro();
+		controleHotel = new ControleHotel();
 		
 		setTitle("Menu de Op\u00E7\u00F5es");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 400, 358);
 		Janela = new JPanel();
+		Janela.setBackground(Color.WHITE);
 		Janela.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(Janela);
 		Janela.setLayout(null);
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBackground(Color.WHITE);
-		menuBar.setBounds(0, 0, 434, 261);
+		menuBar.setBounds(0, 0, 384, 28);
+		menuBar.setBackground(new Color(192, 192, 192));
 		Janela.add(menuBar);
-		
+		JList list = new JList();
+		list.setBackground(Color.PINK);
+
 		JMenuItem mntmCadastrarCliente = new JMenuItem("Cadastrar Cliente");
-		mntmCadastrarCliente.setBackground(Color.WHITE);
 		mntmCadastrarCliente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				novoCliente.setVisible(true);
+
 			}
 		});
 		
 		JMenuItem mntmCadastrarHotel = new JMenuItem("Cadastrar Hotel");
 		mntmCadastrarHotel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseReleased(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {;
+				Cadastro novoCadastro = new Cadastro();
+				novoCadastro.setControleHotel(controleHotel);
+				novoCadastro.setModal(true);
 				novoCadastro.setVisible(true);
+				
+				list.setModel(new AbstractListModel() {
+					String[] values = controleHotel.getListaHotel();
+					public int getSize() {
+						return values.length;
+					}
+					public Object getElementAt(int index) {
+						return values[index];
+					}
+				});
 			}
 		});
+		
 		menuBar.add(mntmCadastrarHotel);
 		menuBar.add(mntmCadastrarCliente);
-	}
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
+		
+		list.setBounds(10, 39, 364, 269);
+		Janela.add(list);
 	}
 }

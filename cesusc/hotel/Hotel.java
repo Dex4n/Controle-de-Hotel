@@ -15,6 +15,10 @@ public class Hotel {
 		this.codigo = codigo;
 		this.nome = nome;
 	}
+	
+	public Hotel() {
+		super();
+	}
 
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
