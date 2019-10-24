@@ -9,6 +9,7 @@ public class ControleHotel {
 	
 	public ControleHotel() {
 		super();
+		
 		listaHoteis = new ArrayList<Hotel>();
 	}
 	

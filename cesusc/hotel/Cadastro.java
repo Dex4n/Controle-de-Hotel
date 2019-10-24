@@ -42,6 +42,7 @@ public class Cadastro extends JDialog {
 	}
 
 	public Cadastro() {
+		
 		meuHotel = new Hotel();
 		
 		setTitle("Cadastro");

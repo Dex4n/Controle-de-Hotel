@@ -34,6 +34,7 @@ public class Opcoes extends JFrame {
 	}
 
 	public Opcoes() {
+		
 		controleHotel = new ControleHotel();
 		
 		setTitle("Menu de Op\u00E7\u00F5es");
