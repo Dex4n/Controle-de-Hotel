@@ -10,7 +10,6 @@ public class ControleHotel {
 	public ControleHotel() {
 		super();
 		listaHoteis = new ArrayList<Hotel>();
-		
 	}
 	
 	public void adicionaHotel(Hotel h) {
